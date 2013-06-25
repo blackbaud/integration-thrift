@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<title>Thrift module: Types</title></head><body>
+<div class="container-fluid">
+<h1>Thrift module: Types</h1>
+<table class="table-bordered table-striped table-condensed"><thead><th>Module</th><th>Services</th><th>Data types</th><th>Constants</th></thead>
+<tr>
+<td>Types</td><td></td>
+<td><a href="Types.html#Struct_BlackbaudRecordIds">BlackbaudRecordIds</a><br/>
+<a href="Types.html#Struct_Credential">Credential</a><br/>
+<a href="Types.html#Struct_EmailCampaign">EmailCampaign</a><br/>
+<a href="Types.html#Struct_EmailMessage">EmailMessage</a><br/>
+<a href="Types.html#Struct_EmailMessageDelivery">EmailMessageDelivery</a><br/>
+<a href="Types.html#Typedef_InfinityId">InfinityId</a><br/>
+<a href="Types.html#Typedef_LuminateId">LuminateId</a><br/>
+<a href="Types.html#Typedef_Timestamp">Timestamp</a><br/>
+<a href="Types.html#Struct_UnboundedDateRange">UnboundedDateRange</a><br/>
+<a href="Types.html#Typedef_Url">Url</a><br/>
+</td>
+<td></code></td>
+</tr></table>
+<hr/><h2 id="Typedefs">Type declarations</h2>
+<div class="definition"><h3 id="Typedef_LuminateId">Typedef: LuminateId</h3>
+<p><strong>Base type:</strong>&nbsp;<code>i64</code></p>
+Data type for unique identifiers in the Luminate Online system.
+<br/></div>
+<div class="definition"><h3 id="Typedef_InfinityId">Typedef: InfinityId</h3>
+<p><strong>Base type:</strong>&nbsp;<code>string</code></p>
+Data type for unique identifiers used by the Infinity platform.
+<br/></div>
+<div class="definition"><h3 id="Typedef_Timestamp">Typedef: Timestamp</h3>
+<p><strong>Base type:</strong>&nbsp;<code>i64</code></p>
+Precise moment in time based on milliseconds since the epoch.
+<br/></div>
+<div class="definition"><h3 id="Typedef_Url">Typedef: Url</h3>
+<p><strong>Base type:</strong>&nbsp;<code>string</code></p>
+Data type for URL parameters
+<br/></div>
+<hr/><h2 id="Structs">Data structures</h2>
+<div class="definition"><h3 id="Struct_Credential">Struct: Credential</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>apiUserName</td><td><code>string</code></td><td></td><td>required</td><td></td></tr>
+<tr><td>2</td><td>millisSinceEpoch</td><td><code><a href="Types.html#Typedef_Timestamp">Timestamp</a></code></td><td></td><td>required</td><td></td></tr>
+<tr><td>3</td><td>hmacSha256</td><td><code>binary</code></td><td></td><td>required</td><td></td></tr>
+</table><br/>A signed, time-sensitive user request credential
+used to authenticate Blackbaud integration API calls.
+<br/></div><div class="definition"><h3 id="Struct_BlackbaudRecordIds">Struct: BlackbaudRecordIds</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>luminateId</td><td><code><a href="Types.html#Typedef_LuminateId">LuminateId</a></code></td><td></td><td>optional</td><td></td></tr>
+<tr><td>2</td><td>infinityId</td><td><code><a href="Types.html#Typedef_InfinityId">InfinityId</a></code></td><td></td><td>optional</td><td></td></tr>
+</table><br/>A single conceptual record may be represented in multiple systems
+using different identifiers.  When performing an integration operation
+on a record, it is desirable to pass all known system identifiers.
+<br/></div><div class="definition"><h3 id="Struct_UnboundedDateRange">Struct: UnboundedDateRange</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>startDate</td><td><code><a href="Types.html#Typedef_Timestamp">Timestamp</a></code></td><td></td><td>optional</td><td></td></tr>
+<tr><td>2</td><td>endDate</td><td><code><a href="Types.html#Typedef_Timestamp">Timestamp</a></code></td><td></td><td>optional</td><td></td></tr>
+</table><br/>Range of calendar dates in which both the start and end values are optional.
+Useful for filtering the scope of data returned by an integration service.
+<br/></div><div class="definition"><h3 id="Struct_EmailCampaign">Struct: EmailCampaign</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>emailCampaignIds</td><td><code><a href="Types.html#Struct_BlackbaudRecordIds">BlackbaudRecordIds</a></code></td><td></td><td>required</td><td></td></tr>
+<tr><td>2</td><td>campaignName</td><td><code>string</code></td><td></td><td>required</td><td></td></tr>
+<tr><td>3</td><td>campaignType</td><td><code>string</code></td><td></td><td>required</td><td></td></tr>
+</table><br/>Models the details of an email campaign that aggregates
+multiple email messages.
+<br/></div><div class="definition"><h3 id="Struct_EmailMessage">Struct: EmailMessage</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>emailMessageIds</td><td><code><a href="Types.html#Struct_BlackbaudRecordIds">BlackbaudRecordIds</a></code></td><td></td><td>required</td><td></td></tr>
+<tr><td>2</td><td>msgName</td><td><code>string</code></td><td></td><td>required</td><td></td></tr>
+<tr><td>3</td><td>msgVersionNumber</td><td><code>i32</code></td><td>Used in A/B testing, version number differentiates <br/>
+discrete messages with the same ID.
+</td><td>required</td><td></td></tr>
+<tr><td>4</td><td>msgUrl</td><td><code><a href="Types.html#Typedef_Url">Url</a></code></td><td></td><td>required</td><td></td></tr>
+<tr><td>5</td><td>parentCampaign</td><td><code><a href="Types.html#Struct_EmailCampaign">EmailCampaign</a></code></td><td></td><td>required</td><td></td></tr>
+</table><br/>Models a unique email payload to be delivered to constituents.
+<br/></div><div class="definition"><h3 id="Struct_EmailMessageDelivery">Struct: EmailMessageDelivery</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>constituentIds</td><td><code><a href="Types.html#Struct_BlackbaudRecordIds">BlackbaudRecordIds</a></code></td><td></td><td>required</td><td></td></tr>
+<tr><td>2</td><td>emailMessage</td><td><code><a href="Types.html#Struct_EmailMessage">EmailMessage</a></code></td><td></td><td>required</td><td></td></tr>
+<tr><td>3</td><td>dateSent</td><td><code><a href="Types.html#Typedef_Timestamp">Timestamp</a></code></td><td></td><td>required</td><td></td></tr>
+<tr><td>4</td><td>dateOpened</td><td><code><a href="Types.html#Typedef_Timestamp">Timestamp</a></code></td><td></td><td>required</td><td></td></tr>
+</table><br/>Tracks the historical delivery of single email message
+to a particular constituent.
+<br/></div></div></body></html>

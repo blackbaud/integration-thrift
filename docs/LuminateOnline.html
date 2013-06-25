@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<title>Thrift module: LuminateOnline</title></head><body>
+<div class="container-fluid">
+<h1>Thrift module: LuminateOnline</h1>
+<table class="table-bordered table-striped table-condensed"><thead><th>Module</th><th>Services</th><th>Data types</th><th>Constants</th></thead>
+<tr>
+<td>LuminateOnline</td><td><a href="LuminateOnline.html#Svc_ConstituentService">ConstituentService</a><br/>
+<ul>
+<li><a href="LuminateOnline.html#Fn_ConstituentService_echo">echo</a></li>
+<li><a href="LuminateOnline.html#Fn_ConstituentService_getEmailCommunicationHistory">getEmailCommunicationHistory</a></li>
+</ul>
+</td>
+<td></td>
+<td></code></td>
+</tr></table>
+<hr/><h2 id="Services">Services</h2>
+<h3 id="Svc_ConstituentService">Service: ConstituentService</h3>
+Defines operations that fetch/manipulate constituents and their related records.
+<br/><div class="definition"><h4 id="Fn_ConstituentService_echo">Function: ConstituentService.echo</h4>
+<pre><code>string</code> echo(<code><a href="Types.html#Struct_Credential">Types.Credential</a></code> credential,
+            <code>string</code> toBeEchoed)
+    throws <code><a href="Errors.html#Struct_FailedAuthenticationException">Errors.FailedAuthenticationException</a></code>
+</pre>Echoes input text to confirm/deny communication with the service.
+<br/></div><div class="definition"><h4 id="Fn_ConstituentService_getEmailCommunicationHistory">Function: ConstituentService.getEmailCommunicationHistory</h4>
+<pre><code>list&lt;<code><a href="Types.html#Struct_EmailMessageDelivery">Types.EmailMessageDelivery</a></code>&gt;</code> getEmailCommunicationHistory(<code><a href="Types.html#Struct_Credential">Types.Credential</a></code> credential,
+                                                              <code><a href="Types.html#Struct_BlackbaudRecordIds">Types.BlackbaudRecordIds</a></code> constituentIds,
+                                                              <code><a href="Types.html#Struct_UnboundedDateRange">Types.UnboundedDateRange</a></code> dateRange)
+    throws <code><a href="Errors.html#Struct_FailedAuthenticationException">Errors.FailedAuthenticationException</a></code>, <code><a href="Errors.html#Struct_NoSuchRecordException">Errors.NoSuchRecordException</a></code>
+</pre>Fetches history of email communications sent to a single constituent.
+<br/></div></div></body></html>
