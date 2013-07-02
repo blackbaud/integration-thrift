@@ -1,0 +1,85 @@
+<project name="integration-thrift" basedir="." default="re-generate">
+
+	<property name="sources.thrift" value="${basedir}/LuminateOnline.thrift"/>
+
+	<property name="executable.thrift" value="/usr/local/bin/thrift"/>
+	<property name="executable.maven" value="mvn"/>
+	<property name="executable.tree" value="/usr/bin/tree"/>
+	<property name="executable.find" value="/usr/bin/find"/>
+
+	<property name="base.docs" value="${basedir}/sdk/docs"/>
+	<property name="base.java" value="${basedir}/sdk/java"/>
+	<property name="base.java.generated" value="${base.java}/target/generated-sources/thrift"/>
+	<property name="base.python" value="${basedir}/sdk/python"/>
+
+	<target name="re-generate-docs">
+		<delete dir="${base.docs}"/>
+		<mkdir dir="${base.docs}" />
+		<exec executable="${executable.thrift}">
+          <arg value="-strict" />
+          <arg value="-recurse" />
+          <arg value="--gen" />
+          <arg value="html"/>
+          <arg value="-out"/>
+          <arg value="${base.docs}"/>
+          <arg value="${sources.thrift}"/>
+        </exec>
+        <echo message="Generated docs:"/>
+		<exec executable="${executable.tree}">
+			<arg value="${base.docs}" />
+		</exec>
+    </target>
+
+	<target name="re-generate-python-sdk">
+		<delete dir="${base.python}"/>
+		<mkdir dir="${base.python}" />
+		<exec executable="${executable.thrift}">
+          <arg value="-strict" />
+          <arg value="-recurse" />
+          <arg value="--gen" />
+          <arg value="py:new_style"/>
+          <arg value="-out"/>
+          <arg value="${base.python}"/>
+          <arg value="${sources.thrift}"/>
+        </exec>
+		<echo message="Generated python sdk sources:"/>
+		<exec executable="${executable.tree}">
+			<arg value="${base.python}" />
+		</exec>
+    </target>
+
+	<target name="re-generate-java-sdk">
+		<delete dir="${base.java.generated}"/>
+		<mkdir dir="${base.java.generated}" />
+		<exec executable="${executable.thrift}">
+          <arg value="-strict" />
+          <arg value="-recurse" />
+          <arg value="--gen" />
+          <arg value="java:private-members,hashcode"/>
+          <arg value="-out"/>
+          <arg value="${base.java.generated}"/>
+          <arg value="${sources.thrift}"/>
+        </exec>
+		<echo message="Generated java sdk sources:"/>
+		<exec executable="${executable.tree}">
+			<arg value="${base.java.generated}" />
+		</exec>
+		<exec executable="${executable.maven}">
+          <arg value="-q" />
+          <arg value="-f" />
+          <arg value="${base.java}/pom.xml" />
+          <arg value="install"/>
+        </exec>
+		<echo message="Compiled java sdk and packaged:"/>
+		<exec executable="${executable.find}">
+			<arg value="${base.java}/target" />
+			<arg value="-name" />
+			<arg value="*.jar"/>
+		</exec>
+    </target>
+
+	<target name="re-generate" depends="re-generate-docs, re-generate-python-sdk, re-generate-java-sdk">
+        <echo message="Fin."/>
+    </target>
+
+</project>
