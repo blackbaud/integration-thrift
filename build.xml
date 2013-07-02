@@ -1,6 +1,6 @@
 <project name="integration-thrift" basedir="." default="re-generate">
 
-	<property name="sources.thrift" value="${basedir}/LuminateOnline.thrift"/>
+	<property name="sources.thrift" value="${basedir}/idl/LuminateOnline.thrift"/>
 
 	<property name="executable.thrift" value="/usr/local/bin/thrift"/>
 	<property name="executable.maven" value="mvn"/>
