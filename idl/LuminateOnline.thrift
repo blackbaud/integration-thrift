@@ -8,15 +8,15 @@ include "Errors.thrift"
 
 // define langauge-appropriate namespaces used by 
 // code generated from this .thift file
-namespace java com.blackbaud.integration.luminate
-namespace csharp Blackbaud.Integration.Luminate
-namespace py blackbaud.integration.luminate
-namespace js blackbaud.integration.luminate
+namespace java com.blackbaud.integration.services
+namespace csharp Blackbaud.Integration.Services
+namespace py blackbaud.integration.services
+namespace js blackbaud.integration.services
 
-/**
- * Defines operations that fetch/manipulate constituents and their related records.
+/*
+ * Describes services offered by Luminate Online.
  */
-service ConstituentService {
+service LuminatOnline {
 	
 	/** Echoes input text to confirm/deny communication with the service. */
 	string echo(
@@ -25,7 +25,7 @@ service ConstituentService {
 	) throws (1: Errors.FailedAuthenticationException authEx);
 
 	/** Fetches history of email communications sent to a single constituent. */
-	list<Types.EmailMessageDelivery> getEmailCommunicationHistory(
+	list<Types.EmailMessageDelivery> getConstituentEmailCommunicationHistory(
 		1: Types.Credential credential, 
 		2: Types.BlackbaudRecordIds constituentIds,
 		3: Types.UnboundedDateRange dateRange,
