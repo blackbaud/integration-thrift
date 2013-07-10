@@ -32,7 +32,11 @@ typedef string Url
 struct Credential {
 	1: required string apiUserName,
 	2: required Timestamp millisSinceEpoch,
-	3: required binary hmacSha256,
+  /** 
+	 * Base 64 encoded HMAC calculated by applying SHA256 algorithm 
+	 * to the combination of apiUserName and millisSinceEpoch 
+	 */
+	3: required string hmacSha256,
 }
 
 /**
