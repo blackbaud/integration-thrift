@@ -11,6 +11,7 @@
 	<property name="base.java" value="${basedir}/sdk/java"/>
 	<property name="base.java.generated" value="${base.java}/target/generated-sources/thrift"/>
 	<property name="base.python" value="${basedir}/sdk/python"/>
+	<property name="base.python.generated" value="${base.python}/blackbaud/integration/generated"/>
 
 	<target name="re-generate-docs">
 		<delete dir="${base.docs}"/>
@@ -31,8 +32,8 @@
 	</target>
 
 	<target name="re-generate-python-sdk">
-		<delete dir="${base.python}"/>
-		<mkdir dir="${base.python}" />
+		<delete dir="${base.python.generated}"/>
+		<mkdir dir="${base.python.generated}" />
 		<exec executable="${executable.thrift}">
 			<arg value="-strict" />
 			<arg value="-recurse" />
@@ -44,7 +45,7 @@
 		</exec>
 		<echo message="Generated python sdk sources:"/>
 		<exec executable="${executable.tree}">
-			<arg value="${base.python}" />
+			<arg value="${base.python.generated}" />
 		</exec>
 	</target>
 

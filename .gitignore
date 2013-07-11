@@ -1,4 +1,5 @@
 *~
 /sdk/docs/
-/sdk/python/
+/sdk/python/blackbaud/integration/generated/
+*.pyc
 /sdk/java/target/

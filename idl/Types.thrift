@@ -4,10 +4,10 @@
 
 // define langauge-appropriate namespaces used by 
 // code generated from this .thift file
-namespace java com.blackbaud.integration.types
-namespace csharp Blackbaud.Integration.Types
-namespace py blackbaud.integration.types
-namespace js blackbaud.integration.types
+namespace java com.blackbaud.integration.generated.types
+namespace csharp Blackbaud.Integration.Generated.Types
+namespace py blackbaud.integration.generated.types
+namespace js blackbaud.integration.generated.types
 
 // =============================== typedefs ====================================
 
