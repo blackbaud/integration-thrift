@@ -1,6 +1,6 @@
 package com.blackbaud.integration;
 
-import com.blackbaud.integration.types.Credential;
+import com.blackbaud.integration.generated.types.Credential;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;

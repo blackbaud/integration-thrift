@@ -1,9 +1,9 @@
 package com.blackbaud.integration;
 
 import com.blackbaud.integration.SharedKeyProvider.NoSuchUserException;
-import com.blackbaud.integration.errors.AuthenticationFailureCode;
-import com.blackbaud.integration.errors.FailedAuthenticationException;
-import com.blackbaud.integration.types.Credential;
+import com.blackbaud.integration.generated.errors.AuthenticationFailureCode;
+import com.blackbaud.integration.generated.errors.FailedAuthenticationException;
+import com.blackbaud.integration.generated.types.Credential;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import java.util.Date;
