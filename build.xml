@@ -1,22 +1,51 @@
-<project name="integration-thrift" basedir="." default="re-generate">
+<project name="integration-thrift" basedir="." default="install">
 
 	<property name="sources.thrift" value="${basedir}/idl/LuminateOnline.thrift"/>
 
 	<property name="executable.thrift" value="/usr/local/bin/thrift"/>
+    <property name="executable.python" value="python"/>
 	<property name="executable.maven" value="mvn"/>
 	<property name="executable.tree" value="/usr/bin/tree"/>
 	<property name="executable.find" value="/usr/bin/find"/>
 
 	<property name="base.docs" value="${basedir}/sdk/docs"/>
-	<property name="base.java" value="${basedir}/sdk/java"/>
-	<property name="base.java.generated" value="${base.java}/target/generated-sources/thrift"/>
 	<property name="base.python" value="${basedir}/sdk/python"/>
 	<property name="base.python.generated" value="${base.python}/blackbaud/integration/generated"/>
+    <property name="base.java" value="${basedir}/sdk/java"/>
+	<property name="base.java.generated" value="${base.java}/target/generated-sources/thrift"/>
+    
+    <target name="clean">
+        <echo message="Begin cleaning all SDK sources."/>
 
-	<target name="re-generate-docs">
-		<delete dir="${base.docs}"/>
-		<mkdir dir="${base.docs}" />
-		<exec executable="${executable.thrift}">
+        <!-- docs -->
+        <delete dir="${base.docs}"/>
+        <mkdir dir="${base.docs}" />
+
+        <!-- python -->
+        <exec executable="${executable.python}" dir="${base.python}">
+			<arg value="setup.py" />
+			<arg value="clean"/>
+            <arg value="-q"/>
+		</exec>
+        <delete dir="${base.python.generated}"/>
+		<mkdir dir="${base.python.generated}" />
+
+        <!-- java -->
+        <exec executable="${executable.maven}" dir="${base.java}">
+			<arg value="clean"/>
+            <arg value="-q" />
+	    </exec>
+        <delete dir="${base.java.generated}"/>
+		<mkdir dir="${base.java.generated}" />
+
+		<echo message="Finished cleaning all SDK sources."/>
+	</target>
+
+    <target name="generate" depends="clean">
+		<echo message="Begin generating all SDK sources."/>
+
+        <!-- docs -->
+        <exec executable="${executable.thrift}">
 			<arg value="-strict" />
 			<arg value="-recurse" />
 			<arg value="--gen" />
@@ -29,12 +58,9 @@
 		<exec executable="${executable.tree}">
 			<arg value="${base.docs}" />
 		</exec>
-	</target>
 
-	<target name="re-generate-python-sdk">
-		<delete dir="${base.python.generated}"/>
-		<mkdir dir="${base.python.generated}" />
-		<exec executable="${executable.thrift}">
+        <!-- python -->
+        <exec executable="${executable.thrift}">
 			<arg value="-strict" />
 			<arg value="-recurse" />
 			<arg value="--gen" />
@@ -47,12 +73,9 @@
 		<exec executable="${executable.tree}">
 			<arg value="${base.python.generated}" />
 		</exec>
-	</target>
 
-	<target name="re-generate-java-sdk">
-		<delete dir="${base.java.generated}"/>
-		<mkdir dir="${base.java.generated}" />
-		<exec executable="${executable.thrift}">
+        <!-- java -->
+        <exec executable="${executable.thrift}">
 			<arg value="-strict" />
 			<arg value="-recurse" />
 			<arg value="--gen" />
@@ -65,11 +88,28 @@
 		<exec executable="${executable.tree}">
 			<arg value="${base.java.generated}" />
 		</exec>
-		<exec executable="${executable.maven}">
-			<arg value="-q" />
-			<arg value="-f" />
-			<arg value="${base.java}/pom.xml" />
+
+		<echo message="Finished generating all SDK sources."/>
+	</target>
+
+	<target name="install" depends="generate">
+		<echo message="Begin installing all SDK sources."/>
+
+        <!-- docs -->
+        <!-- TODO -->
+
+        <!-- python -->
+        <exec executable="${executable.python}" dir="${base.python}">
+			<arg value="setup.py" />
 			<arg value="install"/>
+            <arg value="-q"/>
+            <arg value="--user"/>
+		</exec>
+
+        <!-- java -->
+        <exec executable="${executable.maven}" dir="${base.java}">
+			<arg value="install"/>
+            <arg value="-q" />
 		</exec>
 		<echo message="Compiled java sdk and packaged:"/>
 		<exec executable="${executable.find}">
@@ -77,10 +117,8 @@
 			<arg value="-name" />
 			<arg value="*.jar"/>
 		</exec>
-	</target>
 
-	<target name="re-generate" depends="re-generate-docs, re-generate-python-sdk, re-generate-java-sdk">
-		<echo message="Fin."/>
+		<echo message="Finished installing all SDK sources."/>
 	</target>
 
 </project>
