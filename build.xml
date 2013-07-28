@@ -6,7 +6,6 @@
     <property name="executable.python" value="python"/>
 	<property name="executable.maven" value="mvn"/>
 	<property name="executable.tree" value="/usr/bin/tree"/>
-	<property name="executable.find" value="/usr/bin/find"/>
 
 	<property name="base.docs" value="${basedir}/sdk/docs"/>
 	<property name="base.python" value="${basedir}/sdk/python"/>
@@ -15,36 +14,43 @@
 	<property name="base.java.generated" value="${base.java}/target/generated-sources/thrift"/>
     
     <target name="clean">
-        <echo message="Begin cleaning all SDK sources."/>
+
+        <echo message="==================== Begin cleaning all SDK sources. ===================="/>
 
         <!-- docs -->
+        <echo message="docs ..."/>
         <delete dir="${base.docs}"/>
         <mkdir dir="${base.docs}" />
 
         <!-- python -->
+        <echo message="python ..."/>
         <exec executable="${executable.python}" dir="${base.python}">
 			<arg value="setup.py" />
-			<arg value="clean"/>
             <arg value="-q"/>
+			<arg value="clean"/>
 		</exec>
         <delete dir="${base.python.generated}"/>
 		<mkdir dir="${base.python.generated}" />
 
         <!-- java -->
+        <echo message="java ..."/>
         <exec executable="${executable.maven}" dir="${base.java}">
-			<arg value="clean"/>
             <arg value="-q" />
+			<arg value="clean"/>
 	    </exec>
         <delete dir="${base.java.generated}"/>
 		<mkdir dir="${base.java.generated}" />
 
-		<echo message="Finished cleaning all SDK sources."/>
+		<echo message="==================== Finished cleaning all SDK sources. ===================="/>
+
 	</target>
 
     <target name="generate" depends="clean">
-		<echo message="Begin generating all SDK sources."/>
+
+		<echo message="==================== Begin generating all SDK sources. ===================="/>
 
         <!-- docs -->
+        <echo message="docs ..."/>
         <exec executable="${executable.thrift}">
 			<arg value="-strict" />
 			<arg value="-recurse" />
@@ -54,12 +60,13 @@
 			<arg value="${base.docs}"/>
 			<arg value="${sources.thrift}"/>
  		</exec>
-		<echo message="Generated docs:"/>
 		<exec executable="${executable.tree}">
 			<arg value="${base.docs}" />
+            <arg value="--noreport" />
 		</exec>
 
         <!-- python -->
+        <echo message="python ..."/>
         <exec executable="${executable.thrift}">
 			<arg value="-strict" />
 			<arg value="-recurse" />
@@ -69,12 +76,13 @@
 			<arg value="${base.python}"/>
 			<arg value="${sources.thrift}"/>
 		</exec>
-		<echo message="Generated python sdk sources:"/>
 		<exec executable="${executable.tree}">
 			<arg value="${base.python.generated}" />
+            <arg value="--noreport" />
 		</exec>
 
         <!-- java -->
+        <echo message="java ..."/>
         <exec executable="${executable.thrift}">
 			<arg value="-strict" />
 			<arg value="-recurse" />
@@ -84,41 +92,37 @@
 			<arg value="${base.java.generated}"/>
 			<arg value="${sources.thrift}"/>
 		</exec>
-		<echo message="Generated java sdk sources:"/>
 		<exec executable="${executable.tree}">
 			<arg value="${base.java.generated}" />
+            <arg value="--noreport" />
 		</exec>
 
-		<echo message="Finished generating all SDK sources."/>
+		<echo message="==================== Finished generating all SDK sources. ===================="/>
+
 	</target>
 
 	<target name="install" depends="generate">
-		<echo message="Begin installing all SDK sources."/>
 
-        <!-- docs -->
-        <!-- TODO -->
+		<echo message="==================== Begin installing all SDK sources. ===================="/>
 
         <!-- python -->
+        <echo message="python ..."/>
         <exec executable="${executable.python}" dir="${base.python}">
 			<arg value="setup.py" />
-			<arg value="install"/>
             <arg value="-q"/>
+			<arg value="install"/>
             <arg value="--user"/>
 		</exec>
 
         <!-- java -->
+        <echo message="java ..."/>
         <exec executable="${executable.maven}" dir="${base.java}">
-			<arg value="install"/>
             <arg value="-q" />
-		</exec>
-		<echo message="Compiled java sdk and packaged:"/>
-		<exec executable="${executable.find}">
-			<arg value="${base.java}/target" />
-			<arg value="-name" />
-			<arg value="*.jar"/>
+			<arg value="install"/>
 		</exec>
 
-		<echo message="Finished installing all SDK sources."/>
+		<echo message="==================== Finished installing all SDK sources. ===================="/>
+
 	</target>
 
 </project>
