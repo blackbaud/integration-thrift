@@ -119,6 +119,7 @@
         <exec executable="${executable.maven}" dir="${base.java}">
             <arg value="-q" />
 			<arg value="install"/>
+            <arg value="-Dsurefire.printSummary=false"/>
 		</exec>
 
 		<echo message="==================== Finished installing all SDK sources. ===================="/>
