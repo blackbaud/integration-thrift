@@ -6,10 +6,10 @@ include "Types.thrift"
 
 // define langauge-appropriate namespaces used by 
 // code generated from this .thift file
-namespace java com.blackbaud.integration.errors
-namespace csharp Blackbaud.Integration.Errors
-namespace py blackbaud.integration.errors
-namespace js blackbaud.integration.errors
+namespace java com.blackbaud.integration.generated.errors
+namespace csharp Blackbaud.Integration.Generated.Errors
+namespace py blackbaud.integration.generated.errors
+namespace js blackbaud.integration.generated.errors
 
 enum AuthenticationFailureCode {
 	/** Failed to authenticate the user in your credential. */

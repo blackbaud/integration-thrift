@@ -8,10 +8,10 @@ include "Errors.thrift"
 
 // define langauge-appropriate namespaces used by 
 // code generated from this .thift file
-namespace java com.blackbaud.integration.services
-namespace csharp Blackbaud.Integration.Services
-namespace py blackbaud.integration.services
-namespace js blackbaud.integration.services
+namespace java com.blackbaud.integration.generated.services
+namespace csharp Blackbaud.Integration.Generated.Services
+namespace py blackbaud.integration.generated.services
+namespace js blackbaud.integration.generated.services
 
 /*
  * Describes services offered by Luminate Online.
