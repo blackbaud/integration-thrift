@@ -1,5 +1,6 @@
-package com.blackbaud.integration;
+package com.blackbaud.integration.security;
 
+import com.blackbaud.integration.security.CredentialBuilder;
 import static org.junit.Assert.*;
 
 import java.util.concurrent.TimeUnit;

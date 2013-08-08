@@ -1,4 +1,4 @@
-package com.blackbaud.integration;
+package com.blackbaud.integration.security;
 
 import com.blackbaud.integration.generated.types.Credential;
 import java.security.InvalidKeyException;
@@ -34,7 +34,7 @@ public final class CredentialBuilder {
 		 * @return a {@link Credential} authenticated for a particular moment in time
 		 * @throws RuntimeException if SHA256 HMAC cannot be calculated
 		 */
-		Credential sign(long millisSinceEpoch) throws RuntimeException {
+		public Credential sign(long millisSinceEpoch) throws RuntimeException {
 
 				final String toSign = apiUserName + millisSinceEpoch;
 

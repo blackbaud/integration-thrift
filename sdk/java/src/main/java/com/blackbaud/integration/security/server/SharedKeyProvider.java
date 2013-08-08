@@ -1,7 +1,7 @@
-package com.blackbaud.integration;
+package com.blackbaud.integration.security.server;
 
 /**
- * Thrift API requests are authenticated using a combination of username and symmetric shared key.
+ * Integration API requests are authenticated using a combination of username and symmetric shared key.
  * This interface describes components that can find the correct shared key value for a given API username.
  */
 public interface SharedKeyProvider {

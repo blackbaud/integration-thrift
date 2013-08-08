@@ -24,6 +24,11 @@
       <version>0.9.0</version>
     </dependency>
     <dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>3.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>0.11.6</version>
@@ -57,7 +62,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>com.blackbaud.integration.demo.LuminateServer</mainClass>
+          <mainClass>com.blackbaud.integration.demo.luminate.Server</mainClass>
         </configuration>
       </plugin>
     </plugins>

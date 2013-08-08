@@ -1,11 +1,11 @@
-package com.blackbaud.integration;
+package com.blackbaud.integration.security.server;
 
 import static org.junit.Assert.*;
 
-import com.blackbaud.integration.SharedKeyProvider.NoSuchUserException;
+import com.blackbaud.integration.generated.errors.FailedAuthenticationException;
+import com.blackbaud.integration.security.CredentialBuilder;
+import com.blackbaud.integration.security.server.SharedKeyProvider.NoSuchUserException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.easymock.EasyMock;
 import org.junit.Test;
 
@@ -45,6 +45,17 @@ public class AuthenticatorTest {
 				assertFalse(auth.isCredentialAuthentic(credBuilder.sign().setHmacSha256("hmac_hac")));
 		}
 
+		@Test(expected = FailedAuthenticationException.class)
+		public void testAuthenticate_NullCredential() throws FailedAuthenticationException {
+
+				final long credentialTimeToLive = 30 * 1000;
+				final long twiceTimeToLive = credentialTimeToLive * 2;
+
+				final String sharedKey = "shared_secret_key";
+				final Authenticator auth = new Authenticator(mockKeyProvider(sharedKey), credentialTimeToLive);
+				auth.authenticate(null);
+		}
+
 		/**
 		 * @param sharedKey
 		 * @return a mock {@link SharedKeyProvider} that returns the same shared key for all user names
@@ -63,7 +74,7 @@ public class AuthenticatorTest {
 				}
 
 				EasyMock.replay(keyProvider);
-				
+
 				return keyProvider;
 
 		}

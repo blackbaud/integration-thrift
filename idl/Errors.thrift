@@ -12,20 +12,20 @@ namespace py blackbaud.integration.generated.errors
 namespace js blackbaud.integration.generated.errors
 
 enum AuthenticationFailureCode {
+    /** Credential was null. */
+	MISSING_CREDENTIAL = 0,
 	/** Failed to authenticate the user in your credential. */
-	INVALID_CREDENTIAL = 0,
+	INVALID_CREDENTIAL = 1,
 	/** The credential accompanying the request was too stale. */
-	EXPIRED_CREDENTIAL = 1,	
+	EXPIRED_CREDENTIAL = 2,	
 }
 
 exception FailedAuthenticationException {
-	1: required Types.Credential failedCredential,
-	2: required AuthenticationFailureCode failureCode,
-	3: optional string message = "Authentication failed.",
+	1: required AuthenticationFailureCode failureCode,
+	2: optional string message = "Authentication failed.",
 }
 
 exception NoSuchRecordException {
-	1: required Types.BlackbaudRecordIds notFoundRecordIds,
-	2: optional string message = "The requested record could not be found.",
+	1: optional string message = "The requested record could not be found.",
 }
 

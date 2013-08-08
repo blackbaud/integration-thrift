@@ -1,9 +1,10 @@
-package com.blackbaud.integration;
+package com.blackbaud.integration.security.server;
 
-import com.blackbaud.integration.SharedKeyProvider.NoSuchUserException;
 import com.blackbaud.integration.generated.errors.AuthenticationFailureCode;
 import com.blackbaud.integration.generated.errors.FailedAuthenticationException;
 import com.blackbaud.integration.generated.types.Credential;
+import com.blackbaud.integration.security.CredentialBuilder;
+import com.blackbaud.integration.security.server.SharedKeyProvider.NoSuchUserException;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import java.util.Date;
@@ -37,19 +38,25 @@ public final class Authenticator {
 		 * Checks whether the submitted {@link Credential} is currently valid.
 		 *
 		 * @param cred
-		 * @throws FailedAuthenticationException if the submitted credential is not valid; see also {@link AuthenticationFailureCode} for possible reasons.
+		 * @throws FailedAuthenticationException if the submitted credential is null or is not valid; see also {@link AuthenticationFailureCode} for possible reasons.
 		 */
 		public void authenticate(Credential cred) throws FailedAuthenticationException {
-				Preconditions.checkNotNull(cred);
+				
+				if (cred == null) {
+						throw new FailedAuthenticationException(AuthenticationFailureCode.MISSING_CREDENTIAL)
+										.setMessage("Credential cannot be null.");
+				}
 
 				if (isCredentialStale(cred))
 				{
-						throw new FailedAuthenticationException(cred, AuthenticationFailureCode.EXPIRED_CREDENTIAL);
+						throw new FailedAuthenticationException(AuthenticationFailureCode.EXPIRED_CREDENTIAL)
+										.setMessage("Credential is expired.");
 				}
 
-				if (isCredentialAuthentic(cred))
+				if (false == isCredentialAuthentic(cred))
 				{
-						throw new FailedAuthenticationException(cred, AuthenticationFailureCode.INVALID_CREDENTIAL);
+						throw new FailedAuthenticationException(AuthenticationFailureCode.INVALID_CREDENTIAL)
+										.setMessage("Credential is incorrect.");
 				}
 
 		}
