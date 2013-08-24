@@ -1,3 +1,4 @@
+from itertools import groupby
 from thrift import Thrift
 from thrift.protocol import TBinaryProtocol
 from thrift.transport.THttpClient import THttpClient
@@ -5,6 +6,7 @@ from blackbaud.integration.generated.services import LuminatOnline
 from blackbaud.integration.authentication import CredentialBuilder
 from blackbaud.integration.generated.types.ttypes import BlackbaudRecordIds,\
   UnboundedDateRange
+from string import join
 
 class LuminateOnlineClient(LuminatOnline.Client):
 
@@ -29,11 +31,17 @@ def main():
     print 'server replied "%s"' % client.echo(credBldr.sign(), toEcho)
     
     print 'requesting a constituent\'s email history:'
-    constituentDeliveries = client.getConstituentEmailCommunicationHistory(credBldr.sign(), 
+    consMsgs = client.getConstituentEmailCommunicationHistory(credBldr.sign(), 
                                                          BlackbaudRecordIds(1000001), 
                                                          UnboundedDateRange())
-    #TODO
-    print constituentDeliveries
+    
+    def campaignForConsMsg(consMsg):
+      return consMsg.emailMessage.parentCampaign.campaignName
+    
+    consMsgsByCampaign = groupby(sorted(consMsgs, key=campaignForConsMsg), key=campaignForConsMsg)
+    
+    for campaignName, consMsgs in consMsgsByCampaign:
+      print '%s\n\t => %s' % (campaignName, join(map(lambda cm: cm.emailMessage.msgName, consMsgs), ", "))
     
     
   except Thrift.TException, tx:
