@@ -16,9 +16,9 @@ import javax.inject.Singleton;
 import org.apache.thrift.TException;
 
 @Singleton
-@Secured
 class ConstituentSubService {
 
+		@Secured
 		public List<EmailMessageDelivery> getConstituentEmailCommunicationHistory(Credential credential, BlackbaudRecordIds constituentIds, UnboundedDateRange dateRange) throws FailedAuthenticationException, NoSuchRecordException, TException {
 
 				final EmailCampaign fakeCampaign1 = new EmailCampaign(

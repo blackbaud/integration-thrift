@@ -15,19 +15,18 @@ public final class LuminateModule extends AbstractModule {
 		protected void configure() {
 
 				bind(LuminatOnline.Iface.class).to(LuminateService.class);
-				
+
 				bind(SharedKeyProvider.class).toInstance(new SharedKeyProvider() {
 						public String lookupKey(String userName) throws NoSuchUserException {
 								return "1234";
 						}
 				});
 
-				bind(Long.class).annotatedWith(Names.named("maxCredentialAgeMillis")).toInstance(10 * 1000l);
-				
+				bind(Long.class).annotatedWith(Names.named("maxCredentialAgeMillis")).toInstance(100 * 1000l);
+
 				final SecurityInterceptor secInt = new SecurityInterceptor();
 				requestInjection(secInt);
 
-				bindInterceptor(Matchers.annotatedWith(Secured.class), Matchers.any(), secInt);
+				bindInterceptor(Matchers.any(), Matchers.annotatedWith(Secured.class), secInt);
 		}
-
 }

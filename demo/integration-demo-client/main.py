@@ -1,6 +1,6 @@
 from thrift import Thrift
 from thrift.protocol import TBinaryProtocol
-from thrift.transport import TSocket, TTransport
+from thrift.transport.THttpClient import THttpClient
 from blackbaud.integration.generated.services import LuminatOnline
 from blackbaud.integration.authentication import CredentialBuilder
 from blackbaud.integration.generated.types.ttypes import BlackbaudRecordIds,\
@@ -9,7 +9,7 @@ from blackbaud.integration.generated.types.ttypes import BlackbaudRecordIds,\
 class LuminateOnlineClient(LuminatOnline.Client):
 
   def __init__(self):
-    self.transport = TTransport.TFramedTransport(TSocket.TSocket('localhost', 9090))
+    self.transport = THttpClient('localhost', 9090, '/luminate')
     self.transport.open()
     LuminatOnline.Client.__init__(self, TBinaryProtocol.TBinaryProtocol(self.transport))
 
