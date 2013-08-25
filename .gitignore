@@ -1,5 +1,7 @@
 *~
 /sdk/docs/
+/sdk/js/*
+!/sdk/js/authentication.js
 /sdk/python/blackbaud/integration/generated/
 /sdk/python/MANIFEST
 /sdk/python/build

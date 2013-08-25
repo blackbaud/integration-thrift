@@ -8,6 +8,7 @@
 	<property name="executable.tree" value="/usr/bin/tree"/>
 
 	<property name="base.docs" value="${basedir}/sdk/docs"/>
+    <property name="base.js" value="${basedir}/sdk/js"/>
 	<property name="base.python" value="${basedir}/sdk/python"/>
 	<property name="base.python.generated" value="${base.python}/blackbaud/integration/generated"/>
     <property name="base.java" value="${basedir}/sdk/java"/>
@@ -21,6 +22,11 @@
         <echo message="docs ..."/>
         <delete dir="${base.docs}"/>
         <mkdir dir="${base.docs}" />
+
+        <!-- javascript -->
+        <echo message="javascript ..."/>
+        <delete dir="${base.js}"/>
+        <mkdir dir="${base.js}" />
 
         <!-- python -->
         <echo message="python ..."/>
@@ -62,6 +68,22 @@
  		</exec>
 		<exec executable="${executable.tree}">
 			<arg value="${base.docs}" />
+            <arg value="--noreport" />
+		</exec>
+
+        <!-- javascript -->
+        <echo message="javascript ..."/>
+        <exec executable="${executable.thrift}">
+			<arg value="-strict" />
+			<arg value="-recurse" />
+			<arg value="--gen" />
+			<arg value="js:jquery"/>
+			<arg value="-out"/>
+			<arg value="${base.js}"/>
+			<arg value="${sources.thrift}"/>
+ 		</exec>
+		<exec executable="${executable.tree}">
+			<arg value="${base.js}" />
             <arg value="--noreport" />
 		</exec>
 
