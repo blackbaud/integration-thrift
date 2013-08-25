@@ -8,4 +8,4 @@
 /sdk/python/dist
 *.pyc
 /sdk/java/target/
-/demo/integration-demo-server/target/
+/demo/java-http-server/target/
