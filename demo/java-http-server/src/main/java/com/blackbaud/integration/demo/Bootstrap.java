@@ -1,6 +1,7 @@
 package com.blackbaud.integration.demo;
 
-import com.blackbaud.integration.demo.luminate.LuminateEndpoint;
+import com.blackbaud.integration.demo.luminate.LuminateBinaryEndpoint;
+import com.blackbaud.integration.demo.luminate.LuminateJsonEndpoint;
 import com.blackbaud.integration.demo.luminate.LuminateModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -23,7 +24,8 @@ public final class Bootstrap {
 
 				@Override
 				protected void configureServlets() {
-						serve("/luminate").with(LuminateEndpoint.class);
+						serve("/luminate.binary").with(LuminateBinaryEndpoint.class);
+						serve("/luminate.json").with(LuminateJsonEndpoint.class);
 				}
 		}
 

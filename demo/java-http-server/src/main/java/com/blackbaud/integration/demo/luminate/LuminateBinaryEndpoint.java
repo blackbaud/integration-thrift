@@ -7,11 +7,10 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.server.TServlet;
 
 @Singleton
-//@WebServlet(urlPatterns="/luminate", loadOnStartup=1)
-public final class LuminateEndpoint extends TServlet {
+public final class LuminateBinaryEndpoint extends TServlet {
 		
 		@Inject
-		public LuminateEndpoint(LuminatOnline.Iface luminateSvc) {
+		public LuminateBinaryEndpoint(LuminatOnline.Iface luminateSvc) {
 				super(new LuminatOnline.Processor(luminateSvc), new TBinaryProtocol.Factory());
 		}
 }

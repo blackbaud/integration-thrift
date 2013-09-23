@@ -11,7 +11,7 @@ from string import join
 class LuminateOnlineClient(LuminatOnline.Client):
 
   def __init__(self):
-    self.transport = THttpClient('localhost', 9090, '/luminate')
+    self.transport = THttpClient('localhost', 9090, '/luminate.binary')
     self.transport.open()
     LuminatOnline.Client.__init__(self, TBinaryProtocol.TBinaryProtocol(self.transport))
 
